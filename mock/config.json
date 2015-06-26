@@ -1,5 +1,5 @@
 {
-    "ftlRoot": "./demo/",
+    "ftlRoot": "D:/desktop/ftldemo/demo/",
     "globalData":{
         "global": "powered by Figo(hanlongfei@sogou-inc.com)"
     }
