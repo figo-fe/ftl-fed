@@ -17,7 +17,7 @@ var port = process.env.PORT || 80;
 var server = {
     options: {
         port: port,
-        open: 'http://localhost:'+ port + '/_figoapi/readFtl?ftl=index.ftl',
+        open: 'http://localhost:'+ port + '/mock/index.html',
         keepalive: true,
         middleware: function(connect, options, middlewares) {
             middlewares.unshift(function (req, res, next) {
@@ -50,7 +50,7 @@ var server = {
                     }
                 }else{
                     if(urlMap['ajax'].indexOf(url) != -1){
-                        var fileName = 'data' + url.replace(/[\.\?\/\=\-]/g,'_') + '.json';
+                        var fileName = 'data' + url.replace(/[\.\?\/\=\-\&]/g,'_') + '.json';
                         fs.readFile('./mock/ajax/' + fileName,function (err, data){
                             if(err){
                                 console.log(err);
