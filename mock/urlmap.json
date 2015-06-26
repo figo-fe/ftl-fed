@@ -1,0 +1,8 @@
+{
+    "ajax":[
+        "/ajax/test.html"
+    ],
+    "route":{
+        "/index": "/index.html"
+    }
+}
