@@ -8,13 +8,6 @@
         width: 650px;
         height: 400px;
       }
-      #showJSON{
-        width: 628px;
-        height: 150px;
-        padding: 10px;
-        border: 1px solid #97B0F8;
-        margin-top: 10px;
-      }
       .desc{
         width: 450px;
         position: fixed;
@@ -34,12 +27,9 @@
         1. 本工具可对ftl和json数据进行互转，并通过可视化操作将数据存入ftl<br>
         2. 使用此工具前请配置好ftl目录，并在根目录创建mock文件夹用于存放数据<br>
         3. 操作说明<br>
-        [readMock] 读取ftl中的数据<br>
-        [saveMock] 保存数据到ftl中<br>
-        [clearMock] 清空操作区数据<br>
-        [getJSON] 将数据转为JSON串插入下方输入框<br>
-        [readJSON] 将输入框JSON数据载入操作区<br>
-        [clearJSON] 清空输入框中的数据<br>
+        [readFTL] 读取ftl中的数据<br>
+        [saveFTL] 保存数据到ftl中<br>
+        [clearData] 清空操作区数据<br>
         4. 注意及规范<br>
         <b>includeFTL</b> 会解析为 <#include "xxx" /> <br>
         多个值用分号隔开，如 includeFTL: list.ftl;common/main.ftl <br>
@@ -49,27 +39,32 @@
         <b>时间类型</b> time: Date_2015-6-26 17:34 <br>
         会解析为 <#assign time = "2015-6-26 17:34"?datetime("yyyy-MM-dd HH:mm") /><br>
         <span style="color:red">请勿手动修改生成的ftl格式，如有需要，请严格按照格式修改，否则无法读取！</span><br>
-        <span style="color:#ccc">powered by Figo(hanlongfei@sogou-inc.com), jsoneditor</span>
-
+        <span style="color:#ccc">
+            powered by Figo(hanlongfei@sogou-inc.com),<br>
+            jsoneditor by https://github.com/josdejong/jsoneditor
+        </span>
     </div>
     <div>
         ftl: <input type="text" placeholder="请输入相对路径" id="ftlPath" style="width:400px;">
     </div>
     <p>
-      <button id="readMock">readMock</button>
-      <button id="saveMock">saveMock</button>
-      <button id="clearData">clearMock</button>
-      <button id="getJSON">getJSON</button>
-      <button id="readJSON">readJSON</button>
-      <button id="clearJSON">clearJSON</button>
+      <button id="readFTL">readFTL</button>
+      <button id="saveFTL">saveFTL</button>
+      <button id="clearData">clearData</button>
     </p>
     <div id="jsoneditor"></div>
-    <textarea id="showJSON"></textarea>
     <script>
         var container = document.getElementById('jsoneditor');
-        var editor = new JSONEditor(container);
+        var options = {
+            mode: 'tree',
+            modes: ['code', 'form', 'text', 'tree'], // allowed modes
+            error: function (err) {
+                alert(err.toString());
+            }
+        };
+        var editor = new JSONEditor(container,options);
 
-        $('#readMock').on('click',function(){
+        $('#readFTL').on('click',function(){
             var file = $('#ftlPath').val();
             if(!file){
                 alert('请输入ftl路径');
@@ -79,28 +74,20 @@
                 ftl: file,
                 t: +new Date
             },function (data){
-                editor.set(data);
+                console.log(data);
+                if(data.errcode == 'fail'){
+                    alert('读取失败，请检查文件是否存在');
+                }else{
+                    editor.set(data);
+                }
             },'json');
-        });
-
-        $('#getJSON').on('click',function(){
-            var json = editor.get();
-            $('#showJSON').html(JSON.stringify(json, null, 2));
-        });
-
-        $('#clearJSON').on('click',function(){
-            $('#showJSON').html('');
         });
 
         $('#clearData').on('click',function(){
             editor.set({});
         });
 
-        $('#readJSON').on('click',function(){
-            editor.set(JSON.parse($('#showJSON').val()));
-        });
-
-        $('#saveMock').on('click',function(){
+        $('#saveFTL').on('click',function(){
             var data = editor.get();
             var cont = '';
             var file = $('#ftlPath').val();
@@ -134,4 +121,3 @@
         });
     </script>
 </body>
-</html>

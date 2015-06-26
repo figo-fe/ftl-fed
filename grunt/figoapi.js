@@ -20,8 +20,12 @@ var ftlToJson = function(data){
 var utils = {
     readFtl: function(path,args){
         var file = args.match(/ftl=([\w\/\.]+)/)[1];
-        var cont = fs.readFileSync(path + 'mock/' + file,'utf-8');
-        return ftlToJson(cont);
+        try{
+            var cont = fs.readFileSync(path + 'mock/' + file,'utf-8');
+            return ftlToJson(cont);
+        }catch(e){
+            return '{"errcode":"fail"}';
+        }
     },
     saveFtl: function(path,args,fn){
         fs.writeFile(path + 'mock/' + args.ftl,args.cont,function (err){
