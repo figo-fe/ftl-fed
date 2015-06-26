@@ -1,0 +1,1 @@
+<#assign domain = "www.sogou.com" />

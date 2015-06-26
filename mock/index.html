@@ -11,6 +11,15 @@
     <p>commonMock会作为全局对象传给所有ftl，一般不需要配置</p>
     <p>======================================</p>
     <p>mock目录为本地调试数据</p>
+    <p>config.json配置ftl路径以及ftl全局对象</p>
+    <pre>
+        {
+            "ftlRoot": "./demo/",
+            "globalData":{
+                "global": "powered by Figo(hanlongfei@sogou-inc.com)"
+            }
+        }
+    </pre>
     <p>urlmap.json 配置 url路由，以及ajax代理</p>
     <pre>
         {
@@ -26,5 +35,6 @@
     <p>/ajax/test.html => data_ajax_test_html.json ([url中 ".?/=-&" 替换为 '_')</p>
     <h2>2. ftl数据生成器</h2>
     <p><a href="/mock/mockmaker/" target="_blank">点击进入</a></p>
+    <p style="color:#999">Powered by Figo(hanlongfei@sogou-inc.com)</p>
 </body>
 </html>

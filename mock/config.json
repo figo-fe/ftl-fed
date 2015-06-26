@@ -1,0 +1,6 @@
+{
+    "ftlRoot": "./demo/",
+    "globalData":{
+        "global": "powered by Figo(hanlongfei@sogou-inc.com)"
+    }
+}

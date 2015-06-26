@@ -1,11 +1,11 @@
 'use strict';
 
-var ftlRoot = 'D:/desktop/ftldemo/ftltest/';
-var commonMock = {};
-
 //===========freemarker FED system========================
 
 var fs = require('fs');
+var config = JSON.parse(fs.readFileSync('./mock/config.json'));
+var ftlRoot = config.ftlRoot;
+var commonMock = config.globalData;
 var querystring = require('querystring');
 var Freemarker = require('freemarker.js');
 var fm = new Freemarker({
@@ -17,7 +17,7 @@ var port = process.env.PORT || 80;
 var server = {
     options: {
         port: port,
-        open: 'http://localhost:'+ port + '/mock/index.html',
+        open: 'http://localhost:'+ port + '/mock/',
         keepalive: true,
         middleware: function(connect, options, middlewares) {
             middlewares.unshift(function (req, res, next) {
@@ -45,7 +45,6 @@ var server = {
                             figoapi[func](ftlRoot,querystring.parse(str),function (ret){
                                 res.end(ret);
                             });
-                            
                         });
                     }
                 }else{
