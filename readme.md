@@ -2,7 +2,7 @@
 run freemarker in node, support url route and ajax mock.   
 support json and ftlData conversion to each other.   
 for example: <#assign name = "figo" /> <==> {"name":"figo"}.   
-you can edit mock data in jsoneditor and save in ftl
+you can edit mock data in jsoneditor and save in ftl.   
 Attention：make sure JAVA is installed and JAVA_HOME is in the PATH
 
 ## set ftlRoot
