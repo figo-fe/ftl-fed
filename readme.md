@@ -1,12 +1,20 @@
-# 安装FMPP
-http://fmpp.sourceforge.net/
-配置好环境变量
+# welcome
+run freemarker in node, support url route and ajax mock
+support json and ftlData conversion to each other
+for example: <#assign name = "figo" /> <==> {"name":"figo"}
+you can edit mock data in jsoneditor and save in ftl
 
-# 配置ftl目录
-在mock/config.json中配置 ftlRoot
+## set ftlRoot
+mock/config.json
 
-# 启动服务
-[PORT=123] grunt
+## server
+[PORT=8080] grunt(default 80)
 
-# url route
+## url/ajax config
 mock/urlmap.json
+
+## fakeData
+in mock folder
+
+## see More
+mock/index.html
