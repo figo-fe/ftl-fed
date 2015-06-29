@@ -88,29 +88,13 @@
         });
 
         $('#saveFTL').on('click',function(){
-            var data = editor.get();
-            var cont = '';
+            var cont = JSON.stringify(editor.get());
             var file = $('#ftlPath').val();
             if(!file){
                 alert('请输入ftl路径');
                 return;
             }
-            for(var key in data){
-                var value = data[key];
-                if(key == 'includeFTL'){
-                    var ins = value.split(';');
-                    $.each(ins,function(){
-                        cont += '<#include "'+ this +'" />\r\n';
-                    });
-                }else{
-                    if(value.indexOf('Date_') == 0){
-                        value = '"' + value.replace('Date_','') + '"?datetime("yyyy-MM-dd HH:mm")';
-                    }else{
-                        value = '"' + value + '"';
-                    }
-                    cont += '<#assign ' + key + ' = ' + value + ' />\r\n';
-                }
-            }
+            console.log(cont);
             $.post('/_figoapi/saveFtl',{
                 ftl: file,
                 cont: cont,

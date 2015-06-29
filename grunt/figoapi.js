@@ -17,6 +17,23 @@ var ftlToJson = function(data){
     }
     return '{' + ret.join(',') + '}';
 };
+var jsonToFtl = function(data){
+    data = JSON.parse(data);
+    var cont = '',key,i,v,ins,len;
+    for(key in data){
+        value = JSON.stringify(data[key]);
+        if(key == 'includeFTL'){
+            ins = value.split(';');
+            for(len = ins.length;len;len--){
+                cont += '<#include '+ ins[len - 1] +' />\r\n';
+            }
+        }else{
+            cont += '<#assign ' + key + ' = ' + value + ' />\r\n';
+        }
+    }
+    cont = cont.replace(/"Date_(.*?)"/g,'"$1"?datetime("yyyy-MM-dd HH:mm")');
+    return cont;
+};
 var utils = {
     readFtl: function(path,args){
         var file = args.match(/ftl=([\w\/\.]+)/)[1];
@@ -28,7 +45,8 @@ var utils = {
         }
     },
     saveFtl: function(path,args,fn){
-        fs.writeFile(path + 'mock/' + args.ftl,args.cont,function (err){
+        var cont = jsonToFtl(args.cont);
+        fs.writeFile(path + 'mock/' + args.ftl,cont,function (err){
             var ret = '';
             if(err){
                 ret = err;
