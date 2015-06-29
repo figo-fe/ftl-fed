@@ -5,7 +5,7 @@ var ftlToJson = function(data){
     var ret = [];
     var l;
     for(l = arr.length;l;l--){
-        ret.push(arr[l - 1].replace('<#assign ','"').replace(' =','":').replace(' />',''));
+        ret.unshift(arr[l - 1].replace('<#assign ','"').replace(' =','":').replace(' />',''));
     }
     if(/<#include "/.test(data)){
         var arr2 = data.match(/<#include ".*" \/>/g);
@@ -23,9 +23,9 @@ var jsonToFtl = function(data){
     for(key in data){
         value = JSON.stringify(data[key]);
         if(key == 'includeFTL'){
-            ins = value.split(';');
+            ins = value.replace(/"/g,'').split(';');
             for(len = ins.length;len;len--){
-                cont += '<#include '+ ins[len - 1] +' />\r\n';
+                cont += '<#include "'+ ins[len - 1] +'" />\r\n';
             }
         }else{
             cont += '<#assign ' + key + ' = ' + value + ' />\r\n';
