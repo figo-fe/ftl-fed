@@ -58,6 +58,7 @@ var server = {
                         });
                     }else{
                         var ftl = '';
+                        url = url.split('?')[0];
                         url = urlMap['route'][url] || url;
                         ftl = url == '/' ? '/index.ftl' : url.replace(/\.html$/,'.ftl');
                         fm.render(ftl,commonMock,function (err, data, out){
