@@ -1,7 +1,7 @@
 var fs = require('fs');
 var ftlToJson = function(data){
     data = data.replace(/"(.*?)"\?datetime\("yyyy-MM-dd HH:mm"\)/g,'"Date_$1"');
-    var arr = data.match(/<#assign [\s\S]+? \/>/g);
+    var arr = data.match(/<#assign [\s\S]+? \/>/g) || [];
     var ret = [];
     var l;
     for(l = arr.length;l;l--){
@@ -46,10 +46,10 @@ var utils = {
     },
     saveFtl: function(path,args,fn){
         var cont = args.cont;
-        if(cont = '{}'){
+        if(cont == '{}'){
             fn && fn('数据为空无法写入ftl');
         }else{
-            cont = jsonToFtl();
+            cont = jsonToFtl(cont);
             fs.writeFile(path + 'mock/' + args.ftl,cont,function (err){
                 var ret = '';
                 if(err){
