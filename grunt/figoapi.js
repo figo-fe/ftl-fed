@@ -45,16 +45,21 @@ var utils = {
         }
     },
     saveFtl: function(path,args,fn){
-        var cont = jsonToFtl(args.cont);
-        fs.writeFile(path + 'mock/' + args.ftl,cont,function (err){
-            var ret = '';
-            if(err){
-                ret = err;
-            }else{
-                ret = 'success';
-            }
-            fn && fn(ret);
-        });
+        var cont = args.cont;
+        if(cont = '{}'){
+            fn && fn('数据为空无法写入ftl');
+        }else{
+            cont = jsonToFtl();
+            fs.writeFile(path + 'mock/' + args.ftl,cont,function (err){
+                var ret = '';
+                if(err){
+                    ret = err;
+                }else{
+                    ret = 'success';
+                }
+                fn && fn(ret);
+            });
+        }
     }
 };
 
