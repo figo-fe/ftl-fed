@@ -1,6 +1,6 @@
 var fs = require('fs');
 var ftlToJson = function(data){
-    data = data.replace(/"(.*?)"\?datetime\("yyyy-MM-dd HH:mm"\)/g,'"Date_$1"');
+    data = data.replace(/"([\d\-\: ]+?)"\?datetime\("yyyy-MM-dd HH:mm"\)/g,'"Date_$1"');
     var arr = data.match(/<#assign [\s\S]+? \/>/g) || [];
     var ret = [];
     var l;
