@@ -3,8 +3,10 @@
 //===========freemarker FED system========================
 
 var fs = require('fs');
+var path = require('path');
 var config = JSON.parse(fs.readFileSync('./mock/config.json'));
-var ftlRoot = config.ftlRoot;
+var ftlRoot = config.ftlRoot || path.join(__dirname,'../demo');
+console.log(ftlRoot);
 var commonMock = config.globalData;
 var querystring = require('querystring');
 var Freemarker = require('freemarker.js');
